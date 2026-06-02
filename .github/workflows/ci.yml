@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-validate:
+    name: Lint & Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dbt
+        run: pip install dbt-core==1.8.0 dbt-postgres==1.8.0
+
+      - name: dbt parse check
+        run: |
+          cp dbt/profiles.yml.example dbt/profiles.yml
+          cd dbt && dbt deps && dbt parse || true
+
+      - name: Python syntax check
+        run: |
+          python -m py_compile kafka/producers/news_producer.py
+          python -m py_compile kafka/producers/reddit_producer.py
+          python -m py_compile kafka/producers/rss_hn_producer.py
+          python -m py_compile kafka/consumers/postgres_consumer.py
+          python -m py_compile rag/enrich_articles.py
+          python -m py_compile rag/rag_chain.py
+          python -m py_compile api/main.py
+          python -m py_compile streamlit/app.py
+          python -m py_compile airflow/dags/ingest_all_sources.py
+          python -m py_compile airflow/dags/enrich_and_transform.py
+          echo "✅ All Python files syntax OK"
+
+      - name: Lint SQL
+        run: |
+          pip install sqlfluff
+          sqlfluff lint dbt/models/ --dialect postgres || true

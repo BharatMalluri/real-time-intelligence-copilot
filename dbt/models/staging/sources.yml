@@ -1,0 +1,32 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: news_articles
+        columns:
+          - name: id
+            tests: [not_null, unique]
+          - name: title
+            tests: [not_null]
+      - name: reddit_posts
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: rss_items
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: hn_items
+        columns:
+          - name: id
+            tests: [not_null, unique]
+      - name: article_summaries
+        columns:
+          - name: article_id
+            tests: [not_null]
+          - name: sentiment
+            tests:
+              - accepted_values:
+                  values: ["positive", "negative", "neutral"]

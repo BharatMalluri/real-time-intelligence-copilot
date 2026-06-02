@@ -1,0 +1,43 @@
+# Streaming
+kafka-python==2.0.2
+confluent-kafka==2.4.0
+
+# Data sources
+newsapi-python==0.2.7
+praw==7.7.1
+feedparser==6.0.11
+requests==2.32.3
+
+# Orchestration
+apache-airflow==2.9.1
+
+# Transformation
+dbt-postgres==1.8.0
+dbt-core==1.8.0
+
+# Database
+psycopg2-binary==2.9.9
+sqlalchemy==1.4.52
+pandas==2.2.2
+
+# AI / Embeddings
+sentence-transformers==3.0.1
+chromadb==0.5.3
+ollama==0.2.1
+langchain==0.2.6
+langchain-community==0.2.6
+langchain-chroma==0.1.2
+
+# API
+fastapi==0.111.0
+uvicorn==0.30.1
+pydantic==2.7.4
+
+# Dashboard
+streamlit==1.35.0
+plotly==5.22.0
+
+# Utils
+python-dotenv==1.0.1
+faker==25.2.0
+tqdm==4.66.4
