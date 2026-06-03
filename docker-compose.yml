@@ -116,13 +116,14 @@ services:
   # ── FastAPI ─────────────────────────────────────────────────────────────────
   api:
     build:
-      context: ./api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: api/Dockerfile
     ports:
       - "8001:8001"
     depends_on:
       postgres:
         condition: service_healthy
+
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
@@ -131,7 +132,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
       CHROMA_HOST: chromadb
       CHROMA_PORT: 8000
-      OLLAMA_HOST: http://host.docker.internal:11434
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
     restart: unless-stopped
 
   # ── Streamlit ───────────────────────────────────────────────────────────────
@@ -144,7 +145,7 @@ services:
     depends_on:
       - api
     environment:
-      API_URL: http://api:8001
+      API_URL: http://host.docker.internal:8001
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
       POSTGRES_DB: ${POSTGRES_DB:-intelligence}

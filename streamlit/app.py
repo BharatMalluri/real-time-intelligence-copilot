@@ -25,7 +25,6 @@ def api_get(path, params=None):
         return r.json()
     except Exception as e:
         return None
-
 def api_post(path, payload):
     try:
         r = requests.post(f"{API_URL}{path}", json=payload, timeout=60)

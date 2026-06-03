@@ -34,7 +34,6 @@ def run():
     )
 
     client = NewsApiClient(api_key=NEWSAPI_KEY)
-    from_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
     total = 0
 
     for query in QUERIES:
@@ -42,9 +41,7 @@ def run():
         try:
             response = client.get_everything(
                 q=query,
-                from_param=from_date,
                 language="en",
-                sort_by="publishedAt",
                 page_size=20,
             )
             for article in response.get("articles", []):

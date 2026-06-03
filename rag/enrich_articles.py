@@ -55,17 +55,23 @@ def summarize_with_groq(title: str, content: str) -> dict:
     if not GROQ_API_KEY:
         return {"summary": title, "sentiment": "neutral", "topics": [], "entities": []}
 
-    prompt = f"""Analyze this news article and respond ONLY with valid JSON, no extra text, no markdown:
+    prompt = f"""You are a news analyst. Analyze this article and respond with ONLY a JSON object, no other text.
 
 Title: {title}
-Content: {content[:500] if content else 'No content'}
+Content: {content[:300] if content else 'No content available'}
 
-Respond with exactly this JSON structure:
+Rules:
+- sentiment must be exactly one of: positive, negative, neutral
+- positive = good news, progress, achievement
+- negative = bad news, conflict, crisis, problem  
+- neutral = factual reporting, mixed news
+
+JSON response:
 {{
-  "summary": "2-3 sentence summary",
+  "summary": "write 2 sentences summarizing the article",
   "sentiment": "positive or negative or neutral",
-  "topics": ["topic1", "topic2"],
-  "entities": ["entity1", "entity2"]
+  "topics": ["main topic", "secondary topic"],
+  "entities": ["person or org or place mentioned"]
 }}"""
 
     try:
