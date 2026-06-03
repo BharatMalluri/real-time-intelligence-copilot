@@ -12,7 +12,7 @@
 ```
 
 
-![Architecture](docs/p2_architecture_diagram.svg)
+![Architecture](docs/architecture.png)
 
 
 
