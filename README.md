@@ -1,7 +1,7 @@
 # P2 — Real-Time Intelligence Copilot
 
 > \*\*Real-time news intelligence platform\*\* with RAG, AI enrichment, and a chat interface.
-> Kafka · dbt · ChromaDB · Ollama · FastAPI · Streamlit
+> Kafka · dbt · ChromaDB · Groq (llama-3.1-8b) · FastAPI · Streamlit
 
 !\[CI](https://github.com/BharatMalluri/p2-realtime-intelligence/actions/workflows/ci.yml/badge.svg)
 
@@ -15,7 +15,7 @@
 
 
 
-!\[Architecture](docs/architecture.svg)
+![Architecture](docs/architecture.svg)
 
 
 
@@ -105,11 +105,13 @@ cp .env.example .env
 * **NewsAPI**: https://newsapi.org/register (free, 100 req/day)
 * **Reddit**: https://www.reddit.com/prefs/apps → create app → script type
 
-### 3\. Pull Ollama model
+### \### 3. Get a Groq API key (free)
 
-```bash
-ollama pull llama3
-```
+### \- Go to \*\*https://console.groq.com\*\*
+
+### \- Sign up → API Keys → Create key
+
+### \- Add to your `.env` file: `GROQ\_API\_KEY=your\_key\_here````
 
 ### 4\. Start the stack
 
