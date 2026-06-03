@@ -2,7 +2,8 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN pip install --no-cache-dir streamlit plotly pandas requests
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir streamlit==1.35.0 plotly==5.22.0 pandas==2.2.2 requests==2.32.3
 
 COPY . .
 
