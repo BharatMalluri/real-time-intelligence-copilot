@@ -11,9 +11,6 @@
 
 ```
 
-\## Architecture
-
-
 
 ![Architecture](docs/architecture.svg)
 
